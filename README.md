@@ -1,14 +1,4 @@
-# RoboCup Nav2 Starter Kit
 
-A TurtleBot3 + Nav2 simulation starter kit. Run it as-is and it just works
--- no code needed. If you want to write your own path-planning algorithm,
-in **C++ or Python**, you can plug it in with one launch argument, editing
-exactly one function.
-
-> Instructor? See [`instructor.md`](instructor.md) for setup, maps, and
-> grading tools.
-
----
 
 ## 1. One-time setup
 
