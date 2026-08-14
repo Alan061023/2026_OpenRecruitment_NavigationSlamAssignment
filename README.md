@@ -131,7 +131,7 @@ gazebo --version
 Clone this repository into a colcon workspace and build it:
 
 ```bash
-git clone <this-repo-url> robocup_slam_and_navigation_assignment
+git clone https://github.com/Team-Robo/2026_OpenRecruitment_NavigationSlamAssignment.git robocup_slam_and_navigation_assignment
 cd robocup_slam_and_navigation_assignment
 colcon build --symlink-install
 source install/setup.bash
