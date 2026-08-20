@@ -222,5 +222,5 @@ Required submissions:
 | Robot doesn't move after Nav2 Goal | Did you click **2D Pose Estimate** first? |
 | `KeyError: 'TURTLEBOT3_MODEL'` | This terminal doesn't have the env var set -- run `export TURTLEBOT3_MODEL=burger` in it (see Section 4). Needed in *every* new terminal, not just the one you first built in. |
 | C++ changes don't show up | Rebuild (`colcon build --packages-select planner_cpp`) and `source install/setup.bash` again. |
-| Gazebo won't close / next launch fails | `pkill -9 gzserver; pkill -9 gzclient`, then try again. |
+| Gazebo won't close / next launch fails | `pkill -9 -f ros2; pkill -9 -f gazebo; pkill -9 -f gzserver; pkill -9 -f gzclient; pkill -9 -f gz; pkill -9 -f rviz2`, then try again. |
 | `world2_house` first launch shows "Gazebo Not Responding" | Expected -- it's loading several meshes it hasn't cached yet, can take 1-3 minutes. Don't force-quit, just wait. (`install_dependencies.sh` pre-fetches these so this normally shouldn't happen; if it does, the fetch may have failed at install time, e.g. no network.) |
