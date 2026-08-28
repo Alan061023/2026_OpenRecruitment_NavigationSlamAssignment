@@ -11,7 +11,7 @@ def generate_path(
     goal_pose: PoseStamped,
     grid: OccupancyGridView,
 ) -> list:
-    """BFS from start_pose to goal_pose; ordered (x, y) waypoints, empty if unreachable."""
+    """BFS (8-direction, corner-safe) from start_pose to goal_pose; ordered (x, y) waypoints, empty if unreachable."""
     start = grid.world_to_grid(start_pose.pose.position.x, start_pose.pose.position.y)
     goal = grid.world_to_grid(goal_pose.pose.position.x, goal_pose.pose.position.y)
 
@@ -20,7 +20,10 @@ def generate_path(
 
     visited = {start: None}   # cell -> parent cell
     queue = deque([start])
-    neighbors = [(1, 0), (-1, 0), (0, 1), (0, -1)]
+    neighbors = [
+        (1, 0), (-1, 0), (0, 1), (0, -1),      
+        (1, 1), (1, -1), (-1, 1), (-1, -1), 
+    ]
 
     while queue:
         cur = queue.popleft()
@@ -28,9 +31,13 @@ def generate_path(
             break
         for dx, dy in neighbors:
             nxt = (cur[0] + dx, cur[1] + dy)
-            if nxt not in visited and not grid.is_occupied(*nxt):
-                visited[nxt] = cur
-                queue.append(nxt)
+            if nxt in visited or grid.is_occupied(*nxt):
+                continue
+            if dx != 0 and dy != 0:
+                if grid.is_occupied(cur[0] + dx, cur[1]) and grid.is_occupied(cur[0], cur[1] + dy):
+                    continue
+            visited[nxt] = cur
+            queue.append(nxt)
 
     if goal not in visited:
         return []
